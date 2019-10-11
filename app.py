@@ -4,6 +4,7 @@ It contains the definition of routes and views for the application.
 """
 
 from flask import Flask,request,jsonify
+import json
 app = Flask(__name__)
 
 # Make the WSGI interface available at the top level so wfastcgi can get it.
@@ -19,9 +20,9 @@ def hello():
 @app.route('/predict' , methods=['POST'])
 def predict():
     
-     data=request.values;
-
-     return json.dumps({'prediction': data})
+     data=request.stream.read()
+     return json.dumps(data.decode("utf-8"))
+     #return json.dumps({'prediction': data})
      #X = np.empty((0,20,9))
      
      #dizi=request.args.get('dnm');
